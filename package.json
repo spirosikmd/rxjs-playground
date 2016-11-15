@@ -1,0 +1,24 @@
+{
+  "name": "rxjs-playground",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "concurrently \"tsc -w\" \"watchify app.ts -p [ tsify ] -o app.js\""
+  },
+  "author": "Spyros Ioakeimidis <spyrosikmd@gmail.com> (http://www.spyros.io)",
+  "license": "MIT",
+  "dependencies": {
+    "rxjs": "^5.0.0-rc.3"
+  },
+  "devDependencies": {
+    "@types/chai": "^3.4.34",
+    "@types/core-js": "^0.9.34",
+    "browserify": "^13.1.1",
+    "concurrently": "^3.1.0",
+    "tsify": "^2.0.2",
+    "typescript": "^2.0.9",
+    "watchify": "^3.7.0"
+  }
+}
