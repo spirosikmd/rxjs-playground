@@ -11,12 +11,18 @@ const quarterButton = document.querySelector('#quarter');
 const stopButton = document.querySelector('#stop');
 const resetButton = document.querySelector('#reset');
 
+const input = document.querySelector('#input') as HTMLInputElement;
+const score = document.querySelector('#score');
+
 const start$ = Observable.fromEvent(startButton, 'click');
 const half$ = Observable.fromEvent(halfButton, 'click');
 const quarter$ = Observable.fromEvent(quarterButton, 'click');
 
 const stop$ = Observable.fromEvent(stopButton, 'click');
 const reset$ = Observable.fromEvent(resetButton, 'click');
+
+const input$ = Observable.fromEvent(input, 'input')
+  .map((event: InputEvent) => event.target.value);
 
 const data: Data = {count: 0};
 const inc = (acc: Data): Data => ({count: acc.count + 1});
@@ -45,10 +51,6 @@ interface InputEvent {
   target: HTMLInputElement;
 }
 
-const input = document.querySelector('#input') as HTMLInputElement;
-const input$ = Observable.fromEvent(input, 'input')
-  .map((event: InputEvent) => event.target.value);
-
 const runningGame$ = timer$
   .takeWhile((data: {count: number}) => data.count <= 3)
   .withLatestFrom(
@@ -60,7 +62,7 @@ const runningGame$ = timer$
 starters$
   .subscribe(() => {
     input.focus();
-    document.querySelector('#score').innerHTML = '';
+    score.innerHTML = '';
     input.value = '';
   });
 
@@ -74,7 +76,7 @@ runningGame$
   .reduce((acc, curr) => acc + 1, 0)
   .repeat()
   .subscribe(
-    x => document.querySelector('#score').innerHTML = `${x}`,
+    x => score.innerHTML = `${x}`,
     err => console.log(err),
     () => console.log('complete')
   );
