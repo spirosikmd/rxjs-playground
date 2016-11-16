@@ -49,3 +49,14 @@ starters$
   .startWith(data)
   .scan((acc, curr: (acc: Data) => Data) => curr(acc))
   .subscribe((x) => console.log(x));
+
+interface InputEvent {
+  target: HTMLInputElement;
+}
+
+const input = document.querySelector('#input');
+const input$ = Observable.fromEvent(input, 'input')
+  .map((event: InputEvent) => event.target.value);
+
+input$
+  .subscribe((x) => console.log(x));
