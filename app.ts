@@ -60,5 +60,7 @@ const input$ = Observable.fromEvent(input, 'input')
 Observable.combineLatest(
   timer$,
   input$,
-  (timer, input) => ({count: timer.count, text: input}))
+  (timer, input) => ({count: timer.count, text: input})
+  )
+  .filter((data: {count: number, text: string}) => data.count === parseInt(data.text))
   .subscribe(x => console.log(x));
