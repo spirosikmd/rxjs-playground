@@ -17,19 +17,10 @@ const quarter$ = Observable.fromEvent(quarterButton, 'click');
 
 const stop$ = Observable.fromEvent(stopButton, 'click');
 const reset$ = Observable.fromEvent(resetButton, 'click');
-const interval$ = Observable.interval(1000);
 
 const data: Data = {count: 0};
 const inc = (acc: Data): Data => ({count: acc.count + 1});
 const reset = (acc: Data): Data => data;
-
-const intervalThatStops$ = interval$
-  .takeUntil(stop$);
-
-const incOrReset$ = Observable.merge(
-  intervalThatStops$.mapTo(inc),
-  reset$.mapTo(reset)
-);
 
 const starters$ = Observable.merge(
   start$.mapTo(1000),
