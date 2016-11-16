@@ -48,13 +48,13 @@ const input = document.querySelector('#input');
 const input$ = Observable.fromEvent(input, 'input')
   .map((event: InputEvent) => event.target.value);
 
-Observable.combineLatest(
-  timer$,
-  input$,
-  (timer, input) => ({count: timer.count, text: input})
+timer$
+  .takeWhile((data: {count: number}) => data.count <= 3)
+  .withLatestFrom(
+    input$,
+    (timer, input) => ({count: timer.count, text: input})
   )
   .do(x => console.log(x))
-  .takeWhile((data: {count: number}) => data.count <= 3)
   .filter((data: {count: number, text: string}) => data.count === parseInt(data.text))
   .reduce((acc, curr) => acc + 1, 0)
   .subscribe(
