@@ -59,7 +59,7 @@ timer$
   .reduce((acc, curr) => acc + 1, 0)
   .repeat()
   .subscribe(
-    x => console.log(`Score: ${x}`),
+    x => document.querySelector('#score').innerHTML = `${x}`,
     err => console.log(err),
     () => console.log('complete')
   );
