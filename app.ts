@@ -57,8 +57,9 @@ timer$
   .do(x => console.log(x))
   .filter((data: {count: number, text: string}) => data.count === parseInt(data.text))
   .reduce((acc, curr) => acc + 1, 0)
+  .repeat()
   .subscribe(
-    x => console.log(x),
+    x => console.log(`Score: ${x}`),
     err => console.log(err),
     () => console.log('complete')
   );
