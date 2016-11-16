@@ -62,5 +62,10 @@ Observable.combineLatest(
   input$,
   (timer, input) => ({count: timer.count, text: input})
   )
+  .takeWhile((data: {count: number}) => data.count <= 3)
   .filter((data: {count: number, text: string}) => data.count === parseInt(data.text))
-  .subscribe(x => console.log(x));
+  .subscribe(
+    x => console.log(x),
+    err => console.log(err),
+    () => console.log('complete')
+  );
