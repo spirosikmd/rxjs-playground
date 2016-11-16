@@ -44,11 +44,10 @@ const intervalActions = (time: number) => Observable.merge(
   reset$.mapTo(reset)
 );
 
-starters$
+const timer$ = starters$
   .switchMap(intervalActions)
   .startWith(data)
-  .scan((acc, curr: (acc: Data) => Data) => curr(acc))
-  .subscribe((x) => console.log(x));
+  .scan((acc, curr: (acc: Data) => Data) => curr(acc));
 
 interface InputEvent {
   target: HTMLInputElement;
@@ -58,5 +57,8 @@ const input = document.querySelector('#input');
 const input$ = Observable.fromEvent(input, 'input')
   .map((event: InputEvent) => event.target.value);
 
-input$
-  .subscribe((x) => console.log(x));
+Observable.combineLatest(
+  timer$,
+  input$,
+  (timer, input) => ({count: timer.count, text: input}))
+  .subscribe(x => console.log(x));
