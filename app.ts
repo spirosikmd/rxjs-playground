@@ -43,7 +43,7 @@ const intervalActions = (time: number) => Observable.merge(
 );
 
 const timer$ = starters$
-  .switchMap(intervalActions)
+  .switchMap<number, Data>(intervalActions)
   .startWith(data)
   .scan((acc, curr: (acc: Data) => Data) => curr(acc));
 
